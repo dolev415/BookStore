@@ -1,14 +1,14 @@
 export default {
     template: `
         <section class="about-us">
-            <transition name="bounce">
+        
                 <h2 v-if="isShowTitle">About Us!</h2>
-            </transition>
+         
             <pre>
-                <i class="fas fa-phone-alt"></i> Telephone: Buy our 144 book and u'll know <i class="far fa-grin-wink"></i>
+            <i class="fas fa-smile-wink"></i> Telephone: 0544928441/0547533616 <i class="fas fa-smile-wink"></i>
 
-                <i class="fas fa-inbox"></i> Contact Us : <a href="#">KazeAbale@gmail.com</a></pre>           
-                <img src="imgs/book.png">
+                <i class="fas fa-inbox"></i> Contact Us : <a href="#">dolevTsfoni1@gmail.com/ori.azani@gmail.com</a></pre>           
+            
             </pre>
         </section>
     `,

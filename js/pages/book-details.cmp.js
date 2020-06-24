@@ -2,12 +2,17 @@ import txtWrapper from "../cmps/book-description.cpm.js";
 import { bookService } from "../services/book-service.js";
 import bookReview from '../cmps/book-review.cmp.js'
 
+
 export default {
     template: `
         <section class="book-details" v-if="book">
-            <button class="close-btn" @click="close">Go Back!</button>
+       
+          
             <header class="modal-header flex justify-center">
+            <router-link v-if="prevBookId" :to="'/book/' + prevBookId">Previous Book</router-link>
+                
                 <h2>{{book.title}} : </h2>
+                <router-link v-if="nextBookId" :to="'/book/' + nextBookId">Next Book</router-link>
                 <h2 :class="isExpensive"> {{bookValue}}</h2>
                 <img class="sale-img" v-if="book.listPrice.isOnSale" :src="imgURL"/>
             </header> 
@@ -23,18 +28,20 @@ export default {
             <txt-wrapper :txt="book.description" />
         <book-review :book="book" class="reviews"/>
         <img class="thumbnail" :src="book.thumbnail" />
+        <button class="close-btn" @click="close">Go Back!</button>
         </section>
     `,
     data() {
         return {
+            tagName: 'h2',
             book: null,
+            nextBookId: null,
+            prevBookId: null
         };
     },
-
-    methods: {
-        close() {
-            this.$router.push('/book');
-        },
+    created() {
+        this.loadBook();
+        console.log('CMP CarDetails Created');
     },
 
     computed: {
@@ -71,10 +78,7 @@ export default {
         isExpensive() {
             if (this.book.listPrice.amount > 150) return "red";
             else if (this.book.listPrice.amount < 20) return "green";
-            // return {
-            //     red: this.book.listPrice.amount > 150,
-            //     green: this.book.listPrice.amount < 20,
-            // };
+
         },
         imgURL() {
             if (this.book.listPrice.isOnSale) {
@@ -86,12 +90,33 @@ export default {
         txtWrapper,
         bookReview
     },
-    created() {
-        const { bookId } = this.$route.params;
-        bookService.getBookById(bookId)
-            .then((book) => {
-                this.book = book;
-            });
+    methods: {
+        close() {
+            this.$router.back()
+        },
+        loadBook() {
+            const { bookId } = this.$route.params;
+            console.log(this.$route.params);
+
+            bookService.getBookById(bookId)
+                .then(book => {
+                    this.book = book;
+
+                    bookService.getNextBookId(this.book.id)
+                        .then(bookId => {
+                            this.nextBookId = bookId;
+                        })
+                    bookService.getPrevBookId(this.book.id)
+                        .then(bookId => {
+                            this.prevBookId = bookId;
+                        })
+                })
+        }
 
     },
-};
+    watch: {
+        '$route.params.bookId' () {
+            this.loadBook();
+        }
+    }
+}

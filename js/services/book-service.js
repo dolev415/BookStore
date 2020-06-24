@@ -14,12 +14,64 @@ export const bookService = {
     getBooks,
     getBookById,
     addReview,
-    removeReview
+    removeReview,
+    addGoogleBook,
+    getNextBookId,
+    getPrevBookId
 };
 
 function getBooks() {
     return Promise.resolve(gBooks);
 }
+
+function addGoogleBook(googleBook) {
+    console.log(googleBook)
+    let convertedBook = _convertGoogleBook(googleBook);
+
+    var currBooks = getBooks()
+    currBooks.then((response) => {
+        response.push(convertedBook)
+        Utils.storeToStorage("books", response);
+    });
+}
+
+function getNextBookId(bookId) {
+    var idx = gBooks.findIndex(book => book.id === bookId)
+    if (idx === gBooks.length - 1) idx = 0
+    else idx = idx + 1;
+    return Promise.resolve(gBooks[idx].id)
+}
+
+function getPrevBookId(bookId) {
+    var idx = gBooks.findIndex(book => book.id === bookId)
+    if (idx === gBooks.length - 1) idx = 0
+    else idx = idx - 1;
+    return Promise.resolve(gBooks[idx].id)
+}
+
+function _convertGoogleBook(googleBook) {
+
+
+    return {
+        id: googleBook.id,
+        title: googleBook.volumeInfo.title,
+        subtitle: googleBook.volumeInfo.subtitle,
+        authors: googleBook.volumeInfo.authors,
+        publishedDate: googleBook.volumeInfo.publishedDate,
+        description: googleBook.volumeInfo.description,
+        pageCount: googleBook.volumeInfo.pageCount,
+        categories: googleBook.volumeInfo.description,
+        thumbnail: googleBook.volumeInfo.imageLinks.thumbnail,
+        language: googleBook.volumeInfo.language,
+        listPrice: (googleBook.saleInfo.listPrice) ? googleBook.saleInfo.listPrice : {
+            amount: Utils.getRandomInt(20, 250),
+            currencyCode: 'EUR',
+            isOnSale: false,
+        }
+    }
+
+}
+
 
 function removeReview(bookId, reviewIdx) {
     let currBook = gBooks.find((book) => book.id === bookId)

@@ -6,23 +6,28 @@
     justify-content: center;
 }
 
+
+/* 
 .book-filter input {
     border-radius: 100px;
     margin-inline-end: 5px;
     width: 200px;
     text-align: center;
-}
+} */
 
-.book-filter button {
+
+/* .book-filter button {
     border-radius: 100px;
     transition: background-color 0.6s;
-}
+} */
 
-.book-filter button:hover {
+
+/* .book-filter button:hover {
     cursor: pointer;
     background-color: brown;
-}
+} */
 
-.book-filter input:focus {
+
+/* .book-filter input:focus {
     outline: none;
-}
+} */

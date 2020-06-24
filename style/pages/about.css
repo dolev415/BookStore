@@ -9,33 +9,38 @@
     margin-block-start: 5px;
 }
 
-.about-us img {
+
+/* .about-us img {
     height: 200px;
     margin-bottom: 5rem;
-}
+} */
 
-.about-us h2 {
+
+/* .about-us h2 {
     margin-bottom: 1rem;
     text-transform: uppercase;
     font-size: 6rem;
     cursor: default;
     text-shadow: 2px 2px 4px rgb(49, 49, 49);
-}
+} */
 
 .about-us a {
     text-decoration: underline;
     color: rgb(117, 117, 255);
 }
 
-.bounce-enter-active {
+
+/* .bounce-enter-active {
     animation: bounce-in 2s;
-}
+} */
 
-.bounce-leave-active {
+
+/* .bounce-leave-active {
     animation: bounce-in 2s reverse;
-}
+} */
 
-@keyframes bounce-in {
+
+/* @keyframes bounce-in {
     0% {
         transform: skew(0deg);
     }
@@ -45,4 +50,4 @@
     100% {
         transform: skew(50deg);
     }
-}
+} */

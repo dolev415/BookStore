@@ -17,7 +17,7 @@ new Vue({
             <footer class="main-footer">
                <p>
                    <i class="far fa-copyright"></i> 
-                Created by Nadav Frank ft Kazeeee Abale
+                Created by Dolev Tsfoni & Ori Azani
             </p>
             </footer>
 
